@@ -13,6 +13,8 @@ ZSH_AUTOSUGGEST_ORIGINAL_WIDGET_PREFIX=autosuggest-orig-
 
 ZSH_AUTOSUGGEST_STRATEGY=default
 
+ZSH_AUTOSUGGEST_PREV_CMD=1
+
 # Widgets that clear the suggestion
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(
 	history-search-forward

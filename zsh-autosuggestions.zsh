@@ -39,6 +39,8 @@ ZSH_AUTOSUGGEST_ORIGINAL_WIDGET_PREFIX=autosuggest-orig-
 
 ZSH_AUTOSUGGEST_STRATEGY=default
 
+ZSH_AUTOSUGGEST_PREV_CMD=1
+
 # Widgets that clear the suggestion
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(
 	history-search-forward
@@ -299,7 +301,14 @@ _zsh_autosuggest_suggestion() {
 	local strategy_function="_zsh_autosuggest_strategy_$ZSH_AUTOSUGGEST_STRATEGY"
 
 	if [ -n "$functions[$strategy_function]" ]; then
-		echo -E "$($strategy_function "$prefix")"
+		local suggestion="$($strategy_function "$prefix")"
+
+		if [[ -z "$ZSH_AUTOSUGGEST_PREV_CMD" && \
+			"$suggestion" == "$(_zsh_autosuggest_prev_command)" ]]; then
+			suggestion="";
+		fi
+
+		echo -E "$suggestion"
 	fi
 }
 
